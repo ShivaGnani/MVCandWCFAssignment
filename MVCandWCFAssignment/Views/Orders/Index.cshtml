@@ -1,0 +1,69 @@
+﻿@using MVCandWCFAssignment.Models
+@model OrderViewModels
+@{
+    ViewBag.Title = "Index";
+}
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+<h2>Index</h2>
+@using (Html.BeginForm("Index", "Orders", FormMethod.Post))
+{
+    @Html.DropDownListFor(m => m.Category, new SelectList(Model.Categories, "CategoryID", "CategoryName"), "-- Select Category--", new { @id = "selectCategory" })
+
+    <select id="selectProducts" disabled="true"><option value="0">--Select Product--</option></select>
+    @*<label id="lblUnitPrice"></label>*@
+
+    @Html.TextBoxFor(m=>m.UnitPrice);
+    @Html.TextBoxFor(m => m.Quantity)
+    <label id="lblTotPrice"></label>
+    <input type="submit" value="Submit" />
+    @Html.HiddenFor(m => m.ProductID)
+   
+}
+<script type="text/javascript">
+    var products = [];
+
+    $('#selectCategory').change(function () {
+        var category = $('#selectCategory');
+        var product = $('#selectProducts');
+        products = [];
+        if (category.val() == 0) {
+            product.attr('disabled', true);
+            product.empty();
+            product.append('<option value=' + "0" + '>' + "--Select Product--" + '</option>');
+        }
+        else {
+            product.attr('disabled', false);
+            product.append('<option value=' + "0" + '>' + "--Select Product--" + '</option>');
+            $.ajax({
+                url: '@Url.Action("GetProductsByID")',
+                data: 'categoryID=' + category.val(),
+                dataType: 'JSON',
+                success: function (data) {
+                    product.empty();
+                    $.each(data, function (index, item) {
+                        product.append('<option value=' + item["ProductID"] + '>' + item["ProductName"] + '</option>');
+                        products.push(item);
+                    });
+
+                }
+            }); 
+        }
+    }
+        );
+
+    $('#selectProducts').change(function () {
+        $.each(products, function (index, item) {
+            if (item["ProductID"] == $('#selectProducts').val()) {
+                $('#UnitPrice').val(item["UnitPrice"]);
+                $('#ProductID').val(item["ProductID"]);
+            }
+        });
+        
+       
+    });
+    $("#Quantity").on('change keyup paste mouseup', function () {
+        console.log($(this).val());
+        $('#lblTotPrice').text($('#UnitPrice').val() * $(this).val());
+    });
+</script>

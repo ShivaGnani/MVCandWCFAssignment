@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ProductsService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import namespace="http://tempuri.org/" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/DataServiceLibrary" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IProductsService_GetCategories_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCategories" />
+  </wsdl:message>
+  <wsdl:message name="IProductsService_GetCategories_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCategoriesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IProductsService_GetProductsByID_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetProductsByID" />
+  </wsdl:message>
+  <wsdl:message name="IProductsService_GetProductsByID_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetProductsByIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="IProductsService_SaveOrder_InputMessage">
+    <wsdl:part name="parameters" element="tns:SaveOrder" />
+  </wsdl:message>
+  <wsdl:message name="IProductsService_SaveOrder_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SaveOrderResponse" />
+  </wsdl:message>
+  <wsdl:message name="IProductsService_SaveOrder_ServiceExecptionsFault_FaultMessage">
+    <wsdl:part xmlns:q1="http://schemas.datacontract.org/2004/07/DataServiceLibrary" name="detail" element="q1:ServiceExecptions" />
+  </wsdl:message>
+  <wsdl:portType name="IProductsService">
+    <wsdl:operation name="GetCategories">
+      <wsdl:input wsaw:Action="http://tempuri.org/IProductsService/GetCategories" message="tns:IProductsService_GetCategories_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IProductsService/GetCategoriesResponse" message="tns:IProductsService_GetCategories_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProductsByID">
+      <wsdl:input wsaw:Action="http://tempuri.org/IProductsService/GetProductsByID" message="tns:IProductsService_GetProductsByID_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IProductsService/GetProductsByIDResponse" message="tns:IProductsService_GetProductsByID_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveOrder">
+      <wsdl:input wsaw:Action="http://tempuri.org/IProductsService/SaveOrder" message="tns:IProductsService_SaveOrder_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IProductsService/SaveOrderResponse" message="tns:IProductsService_SaveOrder_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IProductsService/SaveOrderServiceExecptionsFault" name="ServiceExecptionsFault" message="tns:IProductsService_SaveOrder_ServiceExecptionsFault_FaultMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IProductsService" type="tns:IProductsService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetCategories">
+      <soap:operation soapAction="http://tempuri.org/IProductsService/GetCategories" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductsByID">
+      <soap:operation soapAction="http://tempuri.org/IProductsService/GetProductsByID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveOrder">
+      <soap:operation soapAction="http://tempuri.org/IProductsService/SaveOrder" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="ServiceExecptionsFault">
+        <soap:fault use="literal" name="ServiceExecptionsFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ProductsService">
+    <wsdl:port name="BasicHttpBinding_IProductsService" binding="tns:BasicHttpBinding_IProductsService">
+      <soap:address location="http://localhost:8733/Design_Time_Addresses/DataServiceLibrary/ProductsService/" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
